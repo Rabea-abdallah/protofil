@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Carousel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .carousel {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .carousel-button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+
+    .carousel-button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .dots-container {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="carousel">
+    <div class="carousel-images" id="carousel-images">
+      <!-- الصور سيتم إضافتها برمجياً -->
+    </div>
+    <div class="carousel-buttons">
+      <button class="carousel-button" id="prev-btn">&#9664;</button>
+      <button class="carousel-button" id="next-btn">&#9654;</button>
+    </div>
+    <div class="dots-container" id="dots-container">
+      <!-- النقاط سيتم إضافتها برمجياً -->
+    </div>
+  </div>
+
+  <script>
+    // مصفوفة الصور
+    const imagePaths = [
+       https://via.placeholder.com/800x400/FF5733/FFFFFF?text=Image+1 ,
+       https://via.placeholder.com/800x400/33FF57/FFFFFF?text=Image+2 ,
+       https://via.placeholder.com/800x400/3357FF/FFFFFF?text=Image+3 ,
+       https://via.placeholder.com/800x400/FFFF33/000000?text=Image+4 
+    ];
+
+    const carouselImages = document.getElementById( carousel-images );
+    const dotsContainer = document.getElementById( dots-container );
+    let currentIndex = 0;
+
+    // إضافة الصور إلى العنصر
+    imagePaths.forEach((path, index) => {
+      const img = document.createElement( img );
+      img.src = path;
+      img.alt = `Image ${index + 1}`;
+      carouselImages.appendChild(img);
+
+      // إنشاء النقاط (dots)
+      const dot = document.createElement( div );
+      dot.classList.add( dot );
+      if (index === 0) dot.classList.add( active );
+      dot.addEventListener( click , () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll( .dot );
+
+    // تحديث العرض
+    function updateCarousel() {
+      const width = carouselImages.clientWidth;
+      carouselImages.style.transform = `translateX(-${currentIndex * width}px)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle( active , index === currentIndex);
+      });
+    }
+
+    // الذهاب إلى الشريحة التالية
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % imagePaths.length;
+      updateCarousel();
+    }
+
+    // الذهاب إلى الشريحة السابقة
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + imagePaths.length) % imagePaths.length;
+      updateCarousel();
+    }
+
+    // الذهاب إلى شريحة معينة
+    function goToSlide(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    // أزرار التحكم
+    document.getElementById( next-btn ).addEventListener( click , nextSlide);
+    document.getElementById( prev-btn ).addEventListener( click , prevSlide);
+
+    // تدوير تلقائي
+    setInterval(nextSlide, 3000); // تغيير الشريحة كل 3 ثوانٍ
+  </script>
+
+</body>
+</html>
