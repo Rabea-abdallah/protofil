@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Carousel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel img {
+      width: 100%;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .carousel-controls button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    .carousel-controls button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .carousel-dots button {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .carousel-dots button.active {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel"></div>
+    <div class="carousel-controls">
+      <button id="prevBtn">❮</button>
+      <button id="nextBtn">❯</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+
+  <script>
+    // مسارات الصور
+    const imagePaths = [
+      "imag1.png"
+    ];
+
+    // عناصر DOM
+    const carousel = document.getElementById('carousel');
+    const carouselDots = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentIndex = 0;
+
+    // إنشاء الصور والنقاط
+    imagePaths.forEach((path, index) => {
+      const img = document.createElement('img');
+      img.src = path;
+      img.alt = `Image ${index + 1}`;
+      carousel.appendChild(img);
+
+      const dot = document.createElement('button');
+      dot.classList.add('dot');
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(index));
+      carouselDots.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.carousel-dots button');
+
+    // تحديث العرض
+    function updateCarousel() {
+      // تحريك الشريط
+      carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      // تحديث النقاط
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    // الانتقال إلى الشريحة السابقة
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + imagePaths.length) % imagePaths.length;
+      updateCarousel();
+    }
+
+    // الانتقال إلى الشريحة التالية
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % imagePaths.length;
+      updateCarousel();
+    }
+
+    // الانتقال إلى شريحة معينة
+    function goToSlide(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    // التنقل التلقائي
+    let autoPlay = setInterval(nextSlide, 3000);
+
+    // إيقاف التشغيل التلقائي عند التفاعل
+    [prevBtn, nextBtn, ...dots].forEach(element => {
+      element.addEventListener('click', () => {
+        clearInterval(autoPlay);
+        autoPlay = setInterval(nextSlide, 3000);
+      });
+    });
+
+    // إضافة الأحداث للأزرار
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+  </script>
+</body>
+</html>
