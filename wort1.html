@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pdf reader & study helper </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: 100%;
+      max-width: 200px;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+     
+        /* تنسيق الرابط ليظهر كزر */
+        a {
+            display: inline-block; /* لتحويل الرابط إلى عنصر بلوكي */
+            padding: 10px 20px; /* مساحة داخلية للزر */
+            background-color: #4CAF50; /* لون الخلفية */
+            color: white; /* لون النص */
+            text-decoration: none; /* إزالة الخط أسفل الرابط */
+            border-radius: 10px; /* تقوس الحواف */
+            font-size: 16px; /* حجم النص */
+            border: none; /* إزالة الإطار */
+            transition: background-color 0.3s; /* تأثير الانتقال */
+        }
+
+        /* تأثير عند التمرير فوق الزر */
+        a:hover {
+            background-color: #45a049; /* تغيير اللون عند التمرير */
+        }
+   
+  </style>
+  
+</head>
+<body>
+    <center>
+        <br>
+     <h3>pdf reader  &study helper </h3>  
+      <br>
+      <br>
+
+<a href="https://t.me/mstr4simplification">
+            تحميل التطبيق من قناتي علئ التيليجرام 
+            </a>
+                <br>
+
+ <br>
+
+  <div class="image-grid" id="imageGrid"></div>
+
+  <script>
+    // مسارات الصور
+    const imagePaths = [
+        "work1img1.png",
+        "work1img2.png",
+        "work1img3.png",
+        
+    ];
+
+    // إنشاء الصور
+    const imageGrid = document.getElementById("imageGrid");
+    imagePaths.forEach(path => {
+      const img = document.createElement("img");
+      img.src = path;
+      img.alt = "Image";
+      imageGrid.appendChild(img);
+    });
+  </script>   
+        
+        
+    </center>
+   
+    
+    
+
+</body>
+</html>
