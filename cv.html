@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> cv </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            border: 5px solid #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-container img {
+            display: block;
+            width: 90%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 90%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        
+    <div class="image-container">
+        <img src="cv.png" alt="cv">
+       
+    </div>    
+        
+    </center>
+  
+   
+</body>
+</html>
